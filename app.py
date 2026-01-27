@@ -66,7 +66,7 @@ with col2:
 
 # --- ECONOMICS SECTION ---
 st.markdown("---")
-daily_h2_kg = np.trapz(h2, x=hrs) / 1000
+daily_h2_kg = np.trapezoid(h2, x=hrs) / 1000
 annual_h2 = daily_h2_kg * 365
 annual_op_cost = (solar_capacity * 2000) * elec_price
 total_capex = solar_capacity * capex_kw
