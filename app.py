@@ -76,3 +76,41 @@ m1, m2, m3 = st.columns(3)
 m1.metric("Daily Production", f"{daily_h2_kg:.2f} kg/day")
 m2.metric("System Efficiency", f"{(1.25 / np.interp(1.0, i, v))*100:.1f}%")
 m3.metric("LCOH (Cost of H2)", f"${lcoh:.2f} /kg", delta_color="inverse")
+
+import pandas as pd  # Ensure this is at the top or here
+
+# --- DATA EXPORT SECTION ---
+st.markdown("---")
+st.subheader("📥 Export Simulation Results")
+
+# Create a DataFrame for the user to download
+export_df = pd.DataFrame({
+    "Hour": hrs,
+    "Solar Power (kW)": sun,
+    "H2 Production (g/hr)": h2
+})
+
+# Convert to CSV
+csv = export_df.to_csv(index=False).encode('utf-8')
+
+st.download_button(
+    label="Download Daily Production Data (CSV)",
+    data=csv,
+    file_name='h2_production_results.csv',
+    mime='text/csv',
+)
+
+# --- SIDEBAR FOOTER: CREDITS ---
+st.sidebar.markdown("---")
+st.sidebar.write("### 👨‍💻 Developed by")
+st.sidebar.write("[**Kanaiya Thakor**](https://www.linkedin.com/in/kanaiya-thakor/)")
+st.sidebar.caption("Energy Systems | Digital Twins | Python")
+
+# LinkedIn Icon Link
+linkedin_url = "https://www.linkedin.com/in/kanaiya-thakor/"
+st.sidebar.markdown(
+    f'<a href="{linkedin_url}" target="_blank">'
+    '<img src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg" width="30">'
+    '</a>',
+    unsafe_allow_html=True
+)
